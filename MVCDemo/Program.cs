@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MVCDemo.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<PizzasContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PizzasContext") ?? throw new InvalidOperationException("Connection string 'PizzasContext' not found.")));
+builder.Services.AddDbContext<MVCDemoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MVCDemoContext") ?? throw new InvalidOperationException("Connection string 'MVCDemoContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,6 +29,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Pizza}/{action=List}/{id?}");
+    pattern: "{controller=Pizzas}/{action=Index}/{id?}");
 
 app.Run();

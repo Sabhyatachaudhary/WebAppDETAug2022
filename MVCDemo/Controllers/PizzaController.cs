@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCDemo.Models;
 using MVCDemo.Service;
+using MVCDemo.Servics;
 
 namespace MVCDemo.Controllers
 {
@@ -18,13 +19,13 @@ namespace MVCDemo.Controllers
         }
         public IActionResult Details(int id)
         {
-            Pizza p= PizzaService.Get(id);
+            Pizza p = PizzaService.Get(id);
             return View(p);
         }
 
         public IActionResult Create()
         {
-           
+
             return View();
         }
         [HttpPost]
@@ -34,5 +35,34 @@ namespace MVCDemo.Controllers
             PizzaService.Add(p);
             return RedirectToAction("List");
         }
+        public IActionResult Delete(int id)
+        {
+            Friend f = FriendService.Get(id);
+            if (f != null)
+                return View(f);
+            else
+                return RedirectToAction("List");
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(Pizza p)
+        {
+            FriendService.Delete(p.Id);
+            return RedirectToAction("Delete");
+        }
+
+        //public IActionResult Edit()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public IActionResult Edit(int id)
+        //{
+        //    Pizza p = new Pizza { Id = id };
+        //    FriendService.Update(p);
+        //    return RedirectToAction("List");
+        //}
     }
 }

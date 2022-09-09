@@ -19,7 +19,7 @@ namespace MVCDemo.Controllers
         }
         public IActionResult Detail(string title)
         {
-            Booking b=events.FirstOrDefault(x=>x.Title==title);
+            Booking b=events.FirstOrDefault(x=>x.Title == title);
             return View(b);
         }
     }
