@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 
@@ -17,6 +18,7 @@ namespace TodoApi.Controllers
 
         // GET: api/TodoItems
         [HttpGet]
+        [EnableQuery]
         public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems()
         {
             return await _context.TodoItems
